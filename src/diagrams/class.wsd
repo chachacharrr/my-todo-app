@@ -1,0 +1,47 @@
+@startuml TodoApp
+
+' インターフェースの定義
+interface ITodoList {
+    + item: ITodoItem[]
+    + addItem(item: ITodoItem): void
+    + deleteItem(id: string | number): void
+    + updateItem(id: string | number, item: ITodoItem): void
+}
+
+interface ITodoItem {
+    + id: string | number
+    + text: string
+    + complete: boolean
+}
+
+interface ITodoState {
+    + toggleState(): void
+}
+
+' 基本的なクラスの定義
+class TodoList implements ITodoList {
+    + item: ITodoItem[]
+    + addItem(item): void
+    + deleteItem(id: string): void
+    + updateItem(id: string, item: ITodoItem): void
+}
+
+class TodoItem implements ITodoItem {
+    + id: string | number
+    + text: string
+    + complete: boolean
+}
+
+class CompleteState implements ITodoState {
+    + toggleState(): void
+}
+
+class IncompleteState implements ITodoState {
+    + toggleState(): void
+}
+
+' 関係性の定義
+CompleteState --|> ITodoState : implements
+IncompleteState --|> ITodoState : implements
+TodoList *-- ITodoItem : item
+@enduml
