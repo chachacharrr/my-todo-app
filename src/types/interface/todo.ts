@@ -1,12 +1,12 @@
 export interface ITodoList {
   item: ITodoItem[];
   addItem(item: ITodoItem): void;
-  deleteItem(id: string | number): void;
-  updataItem(id: string | number, item: ITodoItem): void;
+  deleteItem(id: string): void;
+  updataItem(item: ITodoItem): void;
 }
 
 export interface ITodoItem {
-  id: string | number;
+  id: string;
   text: string;
   complete: boolean;
 }

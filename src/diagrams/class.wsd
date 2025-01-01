@@ -5,7 +5,7 @@ interface ITodoList {
     + item: ITodoItem[]
     + addItem(item: ITodoItem): void
     + deleteItem(id: string | number): void
-    + updateItem(id: string | number, item: ITodoItem): void
+    + updateItem(id: string | number, text: string): void
 }
 
 interface ITodoItem {
@@ -22,8 +22,8 @@ interface ITodoState {
 class TodoList implements ITodoList {
     + item: ITodoItem[]
     + addItem(item): void
-    + deleteItem(id: string): void
-    + updateItem(id: string, item: ITodoItem): void
+    + deleteItem(id: string | number): void
+    + updateItem(id: string | number, text: string): void
 }
 
 class TodoItem implements ITodoItem {
