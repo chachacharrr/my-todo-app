@@ -10,10 +10,10 @@ export class TodoList implements ITodoList {
     this.item.push(item);
   }
   deleteItem(id: string): void {
-    this.item.filter((todo) => todo.id !== id);
+    this.item = this.item.filter((todo) => todo.id !== id);
   }
 
-  updataItem(item: ITodoItem): void {
+  updateItem(item: ITodoItem): void {
     this.item = this.item.map((currentItem) => {
       if (currentItem.id === item.id) {
         return item;

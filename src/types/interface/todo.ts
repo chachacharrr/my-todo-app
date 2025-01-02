@@ -2,7 +2,7 @@ export interface ITodoList {
   item: ITodoItem[];
   addItem(item: ITodoItem): void;
   deleteItem(id: string): void;
-  updataItem(item: ITodoItem): void;
+  updateItem(item: ITodoItem): void;
 }
 
 export interface ITodoItem {
