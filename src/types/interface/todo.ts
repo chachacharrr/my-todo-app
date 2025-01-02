@@ -12,5 +12,5 @@ export interface ITodoItem {
 }
 
 export interface ITodoState {
-  toggleState(): void;
+  toggleState(item: ITodoItem): void;
 }
