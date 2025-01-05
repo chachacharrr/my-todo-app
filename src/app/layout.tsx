@@ -1,4 +1,6 @@
+import { Navbar } from "@/components/organisms/Navbar";
 import "./globals.css";
+import { TodoListContextProvider } from "@/context/TodoContext";
 
 export default function RootLayout({
   children,
@@ -7,7 +9,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="bg-gray-500">
+        <Navbar />
+        <TodoListContextProvider>{children}</TodoListContextProvider>
+      </body>
     </html>
   );
 }
