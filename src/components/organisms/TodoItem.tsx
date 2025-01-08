@@ -17,7 +17,7 @@ export const TodoItemComponent: FC<Props> = ({
 }) => {
   const [checkState, setCheackState] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [text, setText] = useState("");
+  const [text, setText] = useState(todo.text);
 
   const onChangeCheck = (todo: ITodoItem) => {
     todo.toggleState(todo);
@@ -35,11 +35,12 @@ export const TodoItemComponent: FC<Props> = ({
   };
 
   const onClickDelete = (todo: ITodoItem) => {
-    deleteItem(todo.text);
+    console.log("deleteをクリック");
+    deleteItem(todo.id);
   };
 
   return (
-    <div key={todo.id} className="flex m-3">
+    <div className="flex m-3">
       <input
         type="checkbox"
         className="mr-3"
@@ -49,8 +50,14 @@ export const TodoItemComponent: FC<Props> = ({
         {edit ? (
           <input
             type="text"
+            value={text}
             onChange={(e) => setText(e.target.value)}
             onBlur={() => onBlurUpdate(todo)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                onBlurUpdate(todo);
+              }
+            }}
           />
         ) : checkState ? (
           <s> {todo.text}</s>

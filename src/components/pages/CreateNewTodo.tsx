@@ -35,6 +35,11 @@ export default function CreateNewTodo() {
               name="todos"
               onChange={(e) => setText(e.target.value)}
               className="bg-gray-300 w-60"
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  onClickAddTodo();
+                }
+              }}
             />
           </form>
           <PrimaryButton text="追加" onClick={onClickAddTodo} />

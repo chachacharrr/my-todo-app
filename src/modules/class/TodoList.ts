@@ -9,16 +9,20 @@ export class TodoList implements ITodoList {
   addItem(item: ITodoItem): void {
     this.item.push(item);
   }
-  deleteItem(id: string): void {
-    this.item = this.item.filter((todo) => todo.id !== id);
+  deleteItem(id: string): ITodoList {
+    return new TodoList(
+      (this.item = this.item.filter((todo) => todo.id !== id))
+    );
   }
 
-  updateItem(item: ITodoItem): void {
-    this.item = this.item.map((currentItem) => {
-      if (currentItem.id === item.id) {
-        return item;
-      }
-      return currentItem;
-    });
+  updateItem(item: ITodoItem): ITodoList {
+    return new TodoList(
+      (this.item = this.item.map((currentItem) => {
+        if (currentItem.id === item.id) {
+          return item;
+        }
+        return currentItem;
+      }))
+    );
   }
 }

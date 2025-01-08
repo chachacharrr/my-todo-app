@@ -1,7 +1,6 @@
 "use client";
 
 import { PrimaryButton } from "@/components/atoms/PrimaryButton";
-import { SecondaryButton } from "@/components/atoms/SecondaryButton";
 import { TodoListCard } from "@/components/organisms/TodoListCard";
 import { useRouter } from "next/navigation";
 
@@ -10,9 +9,6 @@ export default function HomePage() {
 
   const onClickCreate = () => {
     router.push("/create");
-  };
-  const onClickTrash = () => {
-    router.push("/trash");
   };
 
   return (
@@ -23,11 +19,6 @@ export default function HomePage() {
         </div>
       </div>
       <TodoListCard />
-      <div className="flex justify-end ">
-        <div className="m-5 ">
-          <SecondaryButton text="ゴミ箱" onClick={onClickTrash} />
-        </div>
-      </div>
     </>
   );
 }
