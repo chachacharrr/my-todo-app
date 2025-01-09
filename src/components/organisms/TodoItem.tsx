@@ -40,7 +40,6 @@ export const TodoItemComponent: FC<Props> = ({
   };
 
   const onClickDelete = (todo: ITodoItem) => {
-    console.log("deleteをクリック");
     deleteItem(todo.id);
   };
 
