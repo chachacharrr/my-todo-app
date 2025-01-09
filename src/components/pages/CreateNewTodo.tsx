@@ -38,6 +38,7 @@ export default function CreateNewTodo() {
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   onClickAddTodo();
+                  e.preventDefault();
                 }
               }}
             />
