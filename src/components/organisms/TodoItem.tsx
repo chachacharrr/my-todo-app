@@ -30,9 +30,13 @@ export const TodoItemComponent: FC<Props> = ({
   };
 
   const onBlurUpdate = (todo: ITodoItem) => {
-    todo.text = text;
-    updateItem(todo);
-    setEdit(false);
+    if (text !== "") {
+      todo.text = text;
+      updateItem(todo);
+      setEdit(false);
+    } else {
+      alert("Todoを入力して下さい");
+    }
   };
 
   const onClickDelete = (todo: ITodoItem) => {
