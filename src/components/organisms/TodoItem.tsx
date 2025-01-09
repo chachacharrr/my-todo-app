@@ -3,6 +3,7 @@
 import React, { FC, useState } from "react";
 import { ITodoItem } from "@/types/interface/todo";
 import { SecondaryButton } from "../atoms/SecondaryButton";
+import { MdOutlineDeleteOutline } from "react-icons/md";
 
 interface Props {
   todo: ITodoItem;
@@ -29,26 +30,30 @@ export const TodoItemComponent: FC<Props> = ({
   };
 
   const onBlurUpdate = (todo: ITodoItem) => {
-    todo.text = text;
-    updateItem(todo);
-    setEdit(false);
+    if (text !== "") {
+      todo.text = text;
+      updateItem(todo);
+      setEdit(false);
+    } else {
+      alert("Todoを入力して下さい");
+    }
   };
 
   const onClickDelete = (todo: ITodoItem) => {
-    console.log("deleteをクリック");
     deleteItem(todo.id);
   };
 
   return (
-    <div className="flex m-3">
+    <div className="flex m-3 items-center">
       <input
         type="checkbox"
         className="mr-3"
         onChange={() => onChangeCheck(todo)}
       />
-      <div className="mr-3" onDoubleClick={() => onDoubleClickUpdate()}>
+      <div className="mr-3 " onDoubleClick={() => onDoubleClickUpdate()}>
         {edit ? (
           <input
+            className="text-gray-800"
             type="text"
             value={text}
             onChange={(e) => setText(e.target.value)}
@@ -65,7 +70,9 @@ export const TodoItemComponent: FC<Props> = ({
           <p>{todo.text}</p>
         )}
       </div>
-      <SecondaryButton text="削除" onClick={() => onClickDelete(todo)} />
+      <SecondaryButton onClick={() => onClickDelete(todo)}>
+        <MdOutlineDeleteOutline />
+      </SecondaryButton>
     </div>
   );
 };
