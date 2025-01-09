@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Todo App (CRUD 操作練習用)
 
-## Getting Started
+この Todo アプリは、CRUD 操作を練習するために作成したアプリケーションです。
+以下の機能があります。
 
-First, run the development server:
+### 機能
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Create（作成）:**
+  - 新規作成ボタンをクリックすると、新しい Todo アイテムを作成するためのページに移動します。
+  - 入力フォームに Todo を入力し、追加ボタンを押すことで、新しい Todo アイテムをリストに追加できます。
+- **Read（読み出し）:**
+  - Todo アイテムをリスト形式で一覧表示します。
+  - 現在、データベース連携は行なっていないため、データはアプリケーション内で管理しています。（Context API）
+- **Update（更新）:**
+  - Todo アイテムをダブルクリックすると、テキストを編集できます。
+  - チェックボックスをクリックすることで、Todo アイテムの完了・未完了を切り替えることができます。
+- **Delete（削除）:**
+  - Todo アイテムの削除ボタンをクリックすると、Todo アイテムを削除できます。
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 技術スタック
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- Context API
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 注意点
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- 現在は、データベース連携を行なっていないため、ページをリロードすると、データが消えてしまいます。
