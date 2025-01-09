@@ -10,7 +10,7 @@ export const Navbar = () => {
         </div>
         <div className="mr-10">
           <Link href="https://github.com/chachacharrr/my-todo-app">
-            <div className="">
+            <div>
               <FaGithub />
             </div>
           </Link>
