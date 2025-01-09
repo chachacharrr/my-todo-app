@@ -9,7 +9,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-gray-500">
+      <body className="bg-gray-800 text-lime-50">
         <Navbar />
         <TodoListContextProvider>{children}</TodoListContextProvider>
       </body>
