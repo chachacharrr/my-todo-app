@@ -1,3 +1,4 @@
+
 import { Navbar } from "@/components/organisms/Navbar";
 import "./globals.css";
 import { TodoListContextProvider } from "@/context/TodoContext";
