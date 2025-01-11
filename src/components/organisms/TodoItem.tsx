@@ -16,7 +16,7 @@ export const TodoItemComponent: FC<Props> = ({
   deleteItem,
   updateItem,
 }) => {
-  const [checkState, setCheackState] = useState(false);
+  const [checkState, setCheackState] = useState(todo.complete);
   const [edit, setEdit] = useState(false);
   const [text, setText] = useState(todo.text);
 
@@ -48,6 +48,7 @@ export const TodoItemComponent: FC<Props> = ({
       <input
         type="checkbox"
         className="mr-3"
+        checked={todo.complete}
         onChange={() => onChangeCheck(todo)}
       />
       <div className="mr-3 " onDoubleClick={() => onDoubleClickUpdate()}>
@@ -65,9 +66,9 @@ export const TodoItemComponent: FC<Props> = ({
             }}
           />
         ) : checkState ? (
-          <s> {todo.text}</s>
+          <s> {`${todo.text} / 状態${todo.complete} / ${checkState}`}</s>
         ) : (
-          <p>{todo.text}</p>
+          <p>{`${todo.text} / 状態${todo.complete}  / ${checkState}`}</p>
         )}
       </div>
       <SecondaryButton onClick={() => onClickDelete(todo)}>
