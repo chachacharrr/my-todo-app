@@ -39,7 +39,10 @@ export default function CreateNewTodo() {
               name="todos"
               onChange={(e) => setText(e.target.value)}
               className="bg-gray-300 w-60 text-gray-800"
-              onKeyDown={(e) => {
+              onKeyDown={(e: React.KeyboardEvent) => {
+                if (e.nativeEvent.isComposing === true) {
+                  return;
+                }
                 if (e.key === "Enter") {
                   onClickAddTodo();
                   e.preventDefault();
