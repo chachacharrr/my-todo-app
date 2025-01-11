@@ -27,10 +27,13 @@ export default function CreateNewTodo() {
 
   return (
     <div>
-      <div className="flex justify-center mt-56">
-        <div className="border-lime-50 border-b-2 border-t-2 w-6/12 h-1/5 flex items-center">
-          <form action="submit" className="m-3 flex p-5">
-            <label htmlFor="todo" className="w-20 mr-3">
+      <div className="flex justify-around mt-56">
+        <div className="border-lime-50 border-b-2 border-t-2 w-11/12 md:w-6/12 h-1/5 flex items-center  justify-center">
+          <form
+            action="submit"
+            className="m-0 p-0  md:m-3 flex md:p-5 flex-auto"
+          >
+            <label htmlFor="todo" className=" mr-3">
               新規Todo
             </label>
             <input
@@ -38,7 +41,7 @@ export default function CreateNewTodo() {
               type="text"
               name="todos"
               onChange={(e) => setText(e.target.value)}
-              className="bg-gray-300 w-60 text-gray-800"
+              className="bg-gray-300  text-gray-800 flex-grow"
               onKeyDown={(e: React.KeyboardEvent) => {
                 if (e.nativeEvent.isComposing === true) {
                   return;
@@ -50,7 +53,7 @@ export default function CreateNewTodo() {
               }}
             />
           </form>
-          <div className="flex h-1/5">
+          <div className="flex h-1/5 mr-0 md:mr-4">
             <PrimaryButton text="追加" onClick={onClickAddTodo} />
           </div>
         </div>
