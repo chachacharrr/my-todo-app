@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { FaGithub } from "react-icons/fa";
-import { LoginButton } from "../atoms/LoginButton";
-import { useRouter } from "next/navigation";
+// import { LoginButton } from "../atoms/LoginButton";
+// import { useRouter } from "next/navigation";
 
 export const Navbar = () => {
-  const router = useRouter();
-  const onClickLogin = () => {
-    router.push("/login");
-  };
+  // const router = useRouter();
+  // const onClickLogin = () => {
+  //   router.push("/login");
+  // };
   return (
     <>
       <div className="bg-blue-300 flex h-10 items-center justify-between text-gray-800">
@@ -18,7 +18,7 @@ export const Navbar = () => {
         </div>
         <div className="flex mr-10 items-center">
           <div className="mr-3">
-            <LoginButton text="ログイン" onClick={onClickLogin} />
+            {/* <LoginButton text="ログイン" onClick={onClickLogin} /> */}
           </div>
           <div className="mr-auto">
             <Link href="https://github.com/chachacharrr/my-todo-app">
