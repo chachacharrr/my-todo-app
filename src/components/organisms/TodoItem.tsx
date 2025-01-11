@@ -66,9 +66,9 @@ export const TodoItemComponent: FC<Props> = ({
             }}
           />
         ) : checkState ? (
-          <s> {`${todo.text} / 状態${todo.complete} / ${checkState}`}</s>
+          <s> {todo.text}</s>
         ) : (
-          <p>{`${todo.text} / 状態${todo.complete}  / ${checkState}`}</p>
+          <p>{todo.text}</p>
         )}
       </div>
       <SecondaryButton onClick={() => onClickDelete(todo)}>
