@@ -7,5 +7,10 @@ type Props = {
 };
 
 export const PrimaryButton = (props: Props) => {
-  return <BaseButton {...props} className="bg-green-400 text-gray-800" />;
+  return (
+    <BaseButton
+      {...props}
+      className="bg-green-400 text-gray-800 hover:bg-green-300"
+    />
+  );
 };
