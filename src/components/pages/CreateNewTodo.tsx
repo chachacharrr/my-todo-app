@@ -7,18 +7,32 @@ import { TodoList } from "@/modules/class/TodoList";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { db } from "../../../firebase.config";
+import { addDoc, collection } from "firebase/firestore";
 
 export default function CreateNewTodo() {
   const router = useRouter();
   const { todoList, setTodoList } = useTodoListContext();
   const [text, setText] = useState("");
 
-  const onClickAddTodo = () => {
+  const onClickAddTodo = async () => {
     if (text !== "") {
       const newTodo = new TodoItem(uuidv4(), text, false);
       const newTodoList = new TodoList([...todoList.item]);
       newTodoList.addItem(newTodo);
       setTodoList(newTodoList);
+      try {
+        await addDoc(collection(db, "todo"), {
+          id: newTodo.id,
+          text: newTodo.text,
+          complete: newTodo.complete,
+        });
+        console.log("追加成功");
+      } catch (e) {
+        console.log(`エラー発生：${e}`);
+        alert("ログインして下さい");
+      }
+
       router.push("/");
     } else {
       alert("Todoを入力して下さい");
