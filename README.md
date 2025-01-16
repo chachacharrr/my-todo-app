@@ -1,3 +1,6 @@
+※ デプロイ先を Vercel から Firebase に移行しました。
+https://todo-707b9.web.app/
+
 ## Todo App (CRUD 操作練習用)
 
 この Todo アプリは、CRUD 操作を練習するために作成したアプリケーションです。
