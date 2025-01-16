@@ -30,7 +30,6 @@ export default function CreateNewTodo() {
         console.log("追加成功");
       } catch (e) {
         console.log(`エラー発生：${e}`);
-        alert("ログインして下さい");
       }
 
       router.push("/");

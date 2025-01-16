@@ -33,8 +33,13 @@ export const Navbar = () => {
         </div>
         <div className="flex mr-10 items-center">
           {user ? (
-            <div className="mr-3">
-              <button onClick={handleLogout}>ログアウト</button>
+            <div className="flex">
+              <div className="mr-3">
+                {user.displayName ? `${user.displayName}さん` : "ゲストさん"}
+              </div>
+              <div className="mr-3">
+                <button onClick={handleLogout}>ログアウト</button>
+              </div>
             </div>
           ) : (
             <div className="mr-3">
