@@ -14,6 +14,7 @@ export default function CreateNewTodo() {
   const router = useRouter();
   const { todoList, setTodoList } = useTodoListContext();
   const [text, setText] = useState("");
+  const { user } = useTodoListContext();
 
   const onClickAddTodo = async () => {
     if (text !== "") {
@@ -21,8 +22,11 @@ export default function CreateNewTodo() {
       const newTodoList = new TodoList([...todoList.item]);
       newTodoList.addItem(newTodo);
       setTodoList(newTodoList);
+      console.log(`ユーザーID_${user?.uid}`);
       try {
-        await addDoc(collection(db, "todo"), {
+        const todoRef = collection(db, "todo", user?.uid as string, "items");
+
+        await addDoc(todoRef, {
           id: newTodo.id,
           text: newTodo.text,
           complete: newTodo.complete,

@@ -20,7 +20,10 @@ export const TodoListContext = createContext<TodoListContextType | null>(null);
 export const TodoListContextProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
+  // Todoリストの状態管理
   const [todoList, setTodoList] = useState(new TodoList([]));
+
+  // ログインユーザーの管理
   const [user, setUser] = useState<User | null>(null);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
