@@ -1,10 +1,39 @@
 import { useTodoListContext } from "@/context/TodoContext";
 import { TodoItemComponent } from "./TodoItem";
 import { ITodoItem, ITodoList } from "@/types/interface/todo";
-// import { TodoItem } from "@/modules/class/TodoItem";
+import { collection, getDocs, query } from "firebase/firestore";
+// import { getDatabase, ref, child, get } from "firebase/database";
+import { useEffect } from "react";
+// import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../../firebase.config";
+import { TodoList } from "@/modules/class/TodoList";
+// import { TodoList } from "@/modules/class/TodoList";
 
 export const TodoListCard = () => {
   const { todoList, setTodoList } = useTodoListContext();
+  const { user } = useTodoListContext();
+
+  useEffect(() => {
+    const fetchTodos = async () => {
+      if (user) {
+        const q = query(collection(db, `todo/${user.uid}/items`)); // userIdで絞り込む
+        const snapshot = await getDocs(q);
+        // console.log(`スナップショット：${snapshot}`);
+        const todoItems = snapshot.docs.map((doc) => {
+          const data = doc.data();
+          return {
+            id: doc.id,
+            text: data.text,
+            complete: data.complete,
+          };
+        }) as ITodoItem[];
+        setTodoList(new TodoList(todoItems));
+      }
+    };
+    fetchTodos();
+  }, [user, setTodoList]);
+
+  console.log(todoList);
 
   const deleteItem = (id: string) => {
     const newTodoList = todoList.deleteItem(id) as ITodoList;
