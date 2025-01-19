@@ -4,8 +4,8 @@ export class TodoItem implements ITodoItem {
   public id: string;
   public text: string;
   public complete: boolean;
-  public toggleState(item: ITodoItem): void {
-    item.complete = !item.complete;
+  public toggleState(): void {
+    this.complete = !this.complete;
   }
 
   constructor(id: string, text: string, complete: boolean) {

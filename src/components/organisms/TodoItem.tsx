@@ -1,9 +1,12 @@
 "use client";
 
-import React, { FC, useState } from "react";
-import { ITodoItem } from "@/types/interface/todo";
+import React, { FC, useEffect, useState } from "react";
+import { ITodoItem, ITodoList } from "@/types/interface/todo";
 import { SecondaryButton } from "../atoms/SecondaryButton";
 import { MdOutlineDeleteOutline } from "react-icons/md";
+import { db } from "../../../firebase.config";
+import { useTodoListContext } from "@/context/TodoContext";
+import { doc, updateDoc } from "firebase/firestore";
 
 interface Props {
   todo: ITodoItem;
@@ -16,13 +19,33 @@ export const TodoItemComponent: FC<Props> = ({
   deleteItem,
   updateItem,
 }) => {
-  const [checkState, setCheackState] = useState(todo.complete);
+  const [checkState, setCheckState] = useState(todo.complete);
   const [edit, setEdit] = useState(false);
   const [text, setText] = useState(todo.text);
+  const { user } = useTodoListContext();
+  const { todoList, setTodoList } = useTodoListContext();
 
-  const onChangeCheck = (todo: ITodoItem) => {
-    todo.toggleState(todo);
-    setCheackState(todo.complete);
+  // completeの状態でチェックボックスを更新
+  useEffect(() => {
+    setCheckState(todo.complete);
+  }, [todo.complete]);
+
+  const onChangeCheck = async (todo: ITodoItem) => {
+    try {
+      //firestoreの更新
+      const updateRef = doc(db, `todo/${user?.uid}/items/${todo.id}`);
+      await updateDoc(updateRef, {
+        complete: !checkState,
+      });
+      //checkの状態を更新
+      setCheckState(!checkState);
+      //todoリストの更新
+      const updatedTodo = { ...todo, complete: !checkState };
+      const newTodoList = todoList.updateItem(updatedTodo) as ITodoList;
+      setTodoList(newTodoList);
+    } catch (error) {
+      console.error("チェック状態の更新エラー:", error);
+    }
   };
 
   const onDoubleClickUpdate = () => {
