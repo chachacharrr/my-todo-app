@@ -20,6 +20,7 @@ export const Navbar = () => {
       await signOut(auth);
       console.log("ログアウト成功");
       router.push("/");
+      window.location.reload(); // ページをリロード
     } catch (error) {
       console.error("ログアウト失敗", error);
     }
