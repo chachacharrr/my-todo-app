@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { db } from "../../../firebase.config";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, Timestamp } from "firebase/firestore";
 
 export default function CreateNewTodo() {
   const router = useRouter();
@@ -18,7 +18,7 @@ export default function CreateNewTodo() {
 
   const onClickAddTodo = async () => {
     if (text !== "") {
-      const newTodo = new TodoItem(uuidv4(), text, false);
+      const newTodo = new TodoItem(uuidv4(), text, false, Timestamp.now());
       const newTodoList = new TodoList([...todoList.item]);
       newTodoList.addItem(newTodo);
       setTodoList(newTodoList);
@@ -30,6 +30,7 @@ export default function CreateNewTodo() {
           id: newTodo.id,
           text: newTodo.text,
           complete: newTodo.complete,
+          createDate: newTodo.createDate,
         });
         console.log("追加成功");
       } catch (e) {

@@ -32,8 +32,14 @@ export const TodoListCard = () => {
             id: doc.id,
             text: data.text,
             complete: data.complete,
+            createDate: data.createDate,
           };
         }) as ITodoItem[];
+        // createDateでソート
+        todoItems.sort((a, b) => {
+          return a.createDate.toMillis() - b.createDate.toMillis(); // FirestoreのTimestampをミリ秒に変換して比較
+        });
+
         setTodoList(new TodoList(todoItems));
       }
     };
