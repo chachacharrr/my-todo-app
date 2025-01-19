@@ -1,12 +1,16 @@
 "use client";
 
 import { TodoList } from "@/modules/class/TodoList";
-import React, { createContext, useContext, useState } from "react";
+import { onAuthStateChanged, User } from "firebase/auth";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { auth } from "../../firebase.config";
 
 //contextの型定義
 type TodoListContextType = {
   todoList: TodoList;
   setTodoList: React.Dispatch<React.SetStateAction<TodoList>>;
+  user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
 };
 
 //contextの箱を作る
@@ -16,9 +20,20 @@ export const TodoListContext = createContext<TodoListContextType | null>(null);
 export const TodoListContextProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
+  // Todoリストの状態管理
   const [todoList, setTodoList] = useState(new TodoList([]));
+
+  // ログインユーザーの管理
+  const [user, setUser] = useState<User | null>(null);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
   return (
-    <TodoListContext.Provider value={{ todoList, setTodoList }}>
+    <TodoListContext.Provider value={{ todoList, setTodoList, user, setUser }}>
       {children}
     </TodoListContext.Provider>
   );

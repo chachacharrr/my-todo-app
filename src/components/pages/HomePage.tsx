@@ -2,13 +2,20 @@
 
 import { PrimaryButton } from "@/components/atoms/PrimaryButton";
 import { TodoListCard } from "@/components/organisms/TodoListCard";
+import { useTodoListContext } from "@/context/TodoContext";
 import { useRouter } from "next/navigation";
 
 export default function HomePage() {
   const router = useRouter();
+  const { user } = useTodoListContext();
 
   const onClickCreate = () => {
-    router.push("/create");
+    if (user) {
+      router.push("/create");
+    } else {
+      router.push("/login");
+      alert("ログインをして下さい");
+    }
   };
 
   return (

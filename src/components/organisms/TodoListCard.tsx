@@ -1,18 +1,67 @@
 import { useTodoListContext } from "@/context/TodoContext";
 import { TodoItemComponent } from "./TodoItem";
 import { ITodoItem, ITodoList } from "@/types/interface/todo";
-// import { TodoItem } from "@/modules/class/TodoItem";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+} from "firebase/firestore";
+// import { getDatabase, ref, child, get } from "firebase/database";
+import { useEffect } from "react";
+// import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../../firebase.config";
+import { TodoList } from "@/modules/class/TodoList";
+// import { TodoList } from "@/modules/class/TodoList";
 
 export const TodoListCard = () => {
   const { todoList, setTodoList } = useTodoListContext();
+  const { user } = useTodoListContext();
+
+  useEffect(() => {
+    const fetchTodos = async () => {
+      if (user) {
+        const q = query(collection(db, `todo/${user.uid}/items`));
+        const snapshot = await getDocs(q);
+        // console.log(`スナップショット：${snapshot}`);
+        const todoItems = snapshot.docs.map((doc) => {
+          const data = doc.data();
+          return {
+            id: doc.id,
+            text: data.text,
+            complete: data.complete,
+            createDate: data.createDate,
+          };
+        }) as ITodoItem[];
+        // createDateでソート
+        todoItems.sort((a, b) => {
+          return a.createDate.toMillis() - b.createDate.toMillis(); // FirestoreのTimestampをミリ秒に変換して比較
+        });
+
+        setTodoList(new TodoList(todoItems));
+      }
+    };
+    fetchTodos();
+  }, [user, setTodoList]);
+
+  console.log(todoList);
 
   const deleteItem = (id: string) => {
     const newTodoList = todoList.deleteItem(id) as ITodoList;
+    deleteDoc(doc(db, `todo/${user?.uid}/items/${id}`));
     setTodoList(newTodoList);
   };
 
+  // 次はアップデートの実装から！
   const updateItem = (item: ITodoItem) => {
     const newTodoList = todoList.updateItem(item) as ITodoList;
+    const updateRef = doc(db, `todo/${user?.uid}/items/${item.id}`);
+    updateDoc(updateRef, {
+      text: item.text,
+      complete: item.complete,
+    });
     setTodoList(newTodoList);
   };
 

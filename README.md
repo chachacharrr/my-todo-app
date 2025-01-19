@@ -27,7 +27,4 @@ https://todo-707b9.web.app/
 - TypeScript
 - Tailwind CSS
 - Context API
-
-### 注意点
-
-- 現在は、データベース連携を行なっていないため、ページをリロードすると、データが消えてしまいます。
+- Firebase
