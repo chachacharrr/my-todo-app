@@ -14,7 +14,3 @@ export interface ITodoItem {
   createDate: Timestamp;
   toggleState(): void;
 }
-
-// export interface ITodoState {
-//   toggleState(): void;
-// }
