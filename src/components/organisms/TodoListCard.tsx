@@ -1,7 +1,14 @@
 import { useTodoListContext } from "@/context/TodoContext";
 import { TodoItemComponent } from "./TodoItem";
 import { ITodoItem, ITodoList } from "@/types/interface/todo";
-import { collection, deleteDoc, doc, getDocs, query } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+} from "firebase/firestore";
 // import { getDatabase, ref, child, get } from "firebase/database";
 import { useEffect } from "react";
 // import { collection, getDocs } from "firebase/firestore";
@@ -41,8 +48,14 @@ export const TodoListCard = () => {
     setTodoList(newTodoList);
   };
 
+  // 次はアップデートの実装から！
   const updateItem = (item: ITodoItem) => {
     const newTodoList = todoList.updateItem(item) as ITodoList;
+    const updateRef = doc(db, `todo/${user?.uid}/items/${item.id}`);
+    updateDoc(updateRef, {
+      text: item.text,
+      complete: item.complete,
+    });
     setTodoList(newTodoList);
   };
 
